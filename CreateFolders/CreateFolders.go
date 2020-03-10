@@ -17,12 +17,12 @@ func main() {
 	}
 	seasons := getInt("  Number of seasons", 1)
 	if seasons < 1 || seasons > 30 {
-		fmt.Println("Number of seasons seems invalid?")
+		fmt.Printf("Number of seasons [%d] seems invalid?\n", seasons)
 		os.Exit(2)
 	}
 	discs := getInt("  Discs per season", 7)
-	if seasons < 1 || seasons > 12 {
-		fmt.Println("Number of discs seems invalid?")
+	if discs < 1 || discs > 12 {
+		fmt.Printf("Number of discs [%d] seems invalid?\n", discs)
 		os.Exit(3)
 	}
 
@@ -64,7 +64,8 @@ func getString(prompt string, def string) string {
 	}
 	fmt.Print(prompt + ": ")
 	text, _ := reader.ReadString('\n')
-	text = strings.Replace(text, "\r\n", "", -1)
+	text = strings.Replace(text, "\r", "", -1)
+	text = strings.Replace(text, "\n", "", -1)
 	if text == "" {
 		text = def
 	}
@@ -75,7 +76,8 @@ func getInt(prompt string, def int) int {
 	valStr := getString(prompt, strconv.Itoa(def))
 	valInt, err := strconv.Atoi(valStr)
 	if err != nil {
-		valInt = 0
+		fmt.Println(err)
+		os.Exit(99)
 	}
 	return valInt
 }
