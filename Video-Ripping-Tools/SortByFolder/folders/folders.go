@@ -38,7 +38,14 @@ func (fc *FolderContents) ChooseSeries() *Series {
 	sort.Strings(keys)
 	fmt.Println("The following series are available to be sorted:")
 	for _, key := range keys {
-		fmt.Printf("  (%s) %s\n", key, fc.series[key].name)
+		sopt := fmt.Sprintf("  (%s) %s: ", key, fc.series[key].name)
+		for idx, season := range fc.series[key].seasons {
+			if idx > 0 {
+				sopt += "; "
+			}
+			sopt += fmt.Sprintf("%s (%d eps)", season.name, season.count)
+		}
+		fmt.Println(sopt)
 		valid += key
 	}
 	choice := getChoice("Select series", valid)
