@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 
 	"./folders"
 )
@@ -23,19 +20,4 @@ func main() {
 	fc := folders.Init()
 	series := fc.ChooseSeries()
 	fmt.Println(series.Name())
-}
-
-func getString(prompt string, def string) string {
-	reader := bufio.NewReader(os.Stdin)
-	if def != "" {
-		prompt = prompt + " [" + def + "]"
-	}
-	fmt.Print(prompt + ": ")
-	text, _ := reader.ReadString('\n')
-	text = strings.Replace(text, "\r", "", -1)
-	text = strings.Replace(text, "\n", "", -1)
-	if text == "" {
-		text = def
-	}
-	return text
 }
