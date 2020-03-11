@@ -24,19 +24,28 @@ func Init() *FolderContents {
 }
 
 // ChooseSeries asks user to select from those with sortable files
-func (fc *FolderContents) ChooseSeries() Series {
+func (fc *FolderContents) ChooseSeries() *Series {
+	if len(fc.series) == 0 {
+		fmt.Println("No series found requiring sorting!")
+		return nil
+	}
+
 	valid := ""
 	var keys []string
 	for key := range fc.series {
 		keys = append(keys, key)
 	}
 	sort.Strings(keys)
+	fmt.Println("The following series are available to be sorted:")
 	for _, key := range keys {
-		fmt.Printf("(%s) %s\n", key, fc.series[key].name)
+		fmt.Printf("  (%s) %s\n", key, fc.series[key].name)
 		valid += key
 	}
-	choice := getRune("Select series", valid)
-	return *fc.series[choice]
+	choice := getChoice("Select series", valid)
+	if choice == "" {
+		return nil
+	}
+	return fc.series[choice]
 }
 
 func newFolderContents() *FolderContents {
@@ -66,7 +75,7 @@ func (fc *FolderContents) scan(parent string) {
 
 }
 
-func getRune(prompt string, valid string) string {
+func getChoice(prompt string, valid string) string {
 	reader := bufio.NewReader(os.Stdin)
 	if valid != "" {
 		prompt = prompt + " [" + valid + "]"

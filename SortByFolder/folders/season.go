@@ -22,7 +22,7 @@ func (s *Season) scan(parent string) {
 		if file.IsDir() {
 			disk := new(Disk)
 			disk.name = file.Name()
-			disk.scan(parent + s.name + "/")
+			disk.scan(parent+s.name+"/", s.name)
 			if disk.count != 0 {
 				s.disks = append(s.disks, *disk)
 				s.count += disk.count

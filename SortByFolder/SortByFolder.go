@@ -17,7 +17,13 @@ import (
 //  2. Prompt for series to sort
 //  3. Do the sorting
 func main() {
+	folders.InitFileRegexp()
+
 	fc := folders.Init()
 	series := fc.ChooseSeries()
+	if series == nil {
+		return
+	}
+
 	fmt.Println(series.Name())
 }
