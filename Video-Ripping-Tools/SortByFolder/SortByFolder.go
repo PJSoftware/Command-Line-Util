@@ -1,6 +1,10 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
+	"os"
+
 	"./folders"
 )
 
@@ -24,4 +28,11 @@ func main() {
 	}
 
 	series.Rename()
+	pause()
+}
+
+func pause() {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Press [ENTER] to continue...")
+	reader.ReadString('\n')
 }
