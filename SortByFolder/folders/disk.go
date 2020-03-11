@@ -3,6 +3,7 @@ package folders
 import (
 	"io/ioutil"
 	"log"
+	"sort"
 	"strconv"
 )
 
@@ -44,4 +45,16 @@ func (d *Disk) scan(parent string, season string) {
 			}
 		}
 	}
+}
+
+// Sorted returns a list of sorted videos in this disk folder
+func (d *Disk) Sorted() []Video {
+	var rv []Video
+	sort.Slice(d.videos, func(i, j int) bool {
+		return d.videos[i].track < d.videos[j].track
+	})
+	for _, video := range d.videos {
+		rv = append(rv, video)
+	}
+	return rv
 }

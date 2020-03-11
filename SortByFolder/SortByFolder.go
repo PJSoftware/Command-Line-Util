@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"./folders"
 )
 
@@ -25,5 +23,5 @@ func main() {
 		return
 	}
 
-	fmt.Println(series.Name())
+	series.Rename()
 }
