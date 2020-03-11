@@ -23,11 +23,10 @@ func main() {
 
 	fc := folders.Init()
 	series := fc.ChooseSeries()
-	if series == nil {
-		return
+	if series != nil {
+		series.Rename()
 	}
 
-	series.Rename()
 	pause()
 }
 
